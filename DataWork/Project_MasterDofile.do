@@ -75,24 +75,18 @@
 
    * Users
    * -----------
+ 
+ 
+	 dis "`c(username)'"
 
-   *User Number:
-   * You                     1    // Replace "You" with your name
-   * Next User               2    // Assign a user number to each additional collaborator of this code
 
-   *Set this value to the user currently using this file
-   global user  1
+    * Jonas
+    if c(username)=="jonasguthoff"  {
+    global Sciebo  "/Users/jonasguthoff/sciebo/ZEF_test"
+    global Github  "/Users/jonasguthoff/Github/ZEF_test"
+    }
 
-   * Root folder globals
-   * ---------------------
 
-   if $user == 1 {
-       global projectfolder "/Users/jonasguthoff/Github/ZEF_test"
-   }
-
-   if $user == 2 {
-       global projectfolder ""  // Enter the file path to the project folder for the next user here
-   }
 
 * These lines are used to test that the name is not already used (do not edit manually)
 *round*Endline*Baseline*********************************************************
@@ -104,7 +98,8 @@
    * Project folder globals
    * ---------------------
 
-   global dataWorkFolder         "$projectfolder/DataWork"
+   global dataWorkFolder         "$Sciebo/DataWork"
+   global dataWorkGithub         "$Github/DataWork"
 
 *iefolder*1*FolderGlobals*subfolder*********************************************
 *iefolder will not work properly if the line above is edited
@@ -132,7 +127,7 @@
    global Endline                "$dataWorkFolder/EmployerSurvey/Endline" 
    global Endline_encrypt        "$encryptFolder/Subfolder EmployerSurvey Encrypted/Round Endline Encrypted" 
    global Endline_dt             "$Endline/DataSets" 
-   global Endline_do             "$Endline/Dofiles" 
+   global Endline_do             "$dataWorkGithub/EmployerSurvey/Endline/Dofiles" 
    global Endline_out            "$Endline/Output" 
 
 
@@ -143,7 +138,7 @@
    global Baseline               "$dataWorkFolder/EmployerSurvey/Baseline" 
    global Baseline_encrypt       "$encryptFolder/Subfolder EmployerSurvey Encrypted/Round Baseline Encrypted" 
    global Baseline_dt            "$Baseline/DataSets" 
-   global Baseline_do            "$Baseline/Dofiles" 
+   global Baseline_do            "$dataWorkGithub/EmployerSurvey/Baseline/Dofiles" 
    global Baseline_out           "$Baseline/Output" 
 
 *iefolder*1*FolderGlobals*endRounds*********************************************
@@ -162,7 +157,7 @@
    * standardization, different sets of control variables,
    * adofile paths etc.
 
-   do "$dataWorkFolder/global_setup.do" 
+   do "$dataWorkGithub/global_setup.do" 
 
 
 *iefolder*2*End_StandardGlobals*************************************************
@@ -191,7 +186,7 @@
 *iefolder will not work properly if the line above is edited
 
    if (0) { //Change the 0 to 1 to run the Endline master dofile
-       do "$Endline/Endline_MasterDofile.do" 
+       do "$dataWorkGithub/EmployerSurvey/Endline/Endline_MasterDofile.do" 
    }
 
 
@@ -199,7 +194,7 @@
 *iefolder will not work properly if the line above is edited
 
    if (0) { //Change the 0 to 1 to run the Baseline master dofile
-       do "$Baseline/Baseline_MasterDofile.do" 
+       do "$dataWorkGithub/EmployerSurvey/Baseline/Baseline_MasterDofile.do" 
    }
 
 *iefolder*3*End_RunDofiles******************************************************
