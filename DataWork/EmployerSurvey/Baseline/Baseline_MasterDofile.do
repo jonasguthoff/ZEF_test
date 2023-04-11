@@ -1,25 +1,18 @@
    * ******************************************************************** *
    * ******************************************************************** *
    *                                                                      *
-   *               your_project_name                                      *
+   *               your_round_name                                        *
    *               MASTER DO_FILE                                         *
    *                                                                      *
    * ******************************************************************** *
    * ******************************************************************** *
 
        /*
-       ** PURPOSE:      Write intro to project here
+       ** PURPOSE:      Write intro to survey round here
 
        ** OUTLINE:      PART 0: Standardize settings and install packages
-                        PART 1: Set globals for dynamic file paths
-                        PART 2: Set globals for constants and varlist
-                               used across the project. Install all user-contributed
-                               commands needed.
-                        PART 3: Call the task-specific master do-files 
-                               that call all dofiles needed for that 
-                               task. Do not include Part 0-2 in a task-
-                               specific master do-file
-
+                        PART 1: Prepare folder path globals
+                        PART 2: Run the master dofiles for each high-level task
 
        ** IDS VAR:      list_ID_var_here         //Uniquely identifies households (update for your project)
 
@@ -95,25 +88,12 @@
    }
 
 * These lines are used to test that the name is not already used (do not edit manually)
-*round*Endline*Baseline*********************************************************
-*untObs*************************************************************************
-*subFld*EmployerSurvey**********************************************************
-*iefolder will not work properly if the lines above are edited
-
 
    * Project folder globals
    * ---------------------
 
    global dataWorkFolder         "$projectfolder/DataWork"
 
-*iefolder*1*FolderGlobals*subfolder*********************************************
-*iefolder will not work properly if the line above is edited
-
-
-   *EmployerSurvey sub-folder globals
-   global EmployerSurvey         "$dataWorkFolder/EmployerSurvey" 
-   global EmployerSurvey_encrypt "$encryptFolder/Subfolder EmployerSurvey Encrypted" 
-   
 *iefolder*1*FolderGlobals*master************************************************
 *iefolder will not work properly if the line above is edited
 
@@ -124,31 +104,39 @@
 
    global encryptFolder          "$dataWorkFolder/EncryptedData" 
 
-
-*iefolder*1*RoundGlobals*rounds*Endline*Endline*********************************
+*iefolder*1*FolderGlobals*Baseline**********************************************
 *iefolder will not work properly if the line above is edited
 
-   *Endline folder globals
-   global Endline                "$dataWorkFolder/EmployerSurvey/Endline" 
-   global Endline_encrypt        "$encryptFolder/Subfolder EmployerSurvey Encrypted/Round Endline Encrypted" 
-   global Endline_dt             "$Endline/DataSets" 
-   global Endline_do             "$Endline/Dofiles" 
-   global Endline_out            "$Endline/Output" 
 
-
-*iefolder*1*RoundGlobals*rounds*Baseline*Baseline*******************************
-*iefolder will not work properly if the line above is edited
-
-   *Baseline folder globals
+   *Encrypted round sub-folder globals
    global Baseline               "$dataWorkFolder/EmployerSurvey/Baseline" 
+
+   *Encrypted round sub-folder globals
    global Baseline_encrypt       "$encryptFolder/Subfolder EmployerSurvey Encrypted/Round Baseline Encrypted" 
+   global Baseline_dtRaw         "$Baseline_encrypt/Raw Identified Data" 
+   global Baseline_doImp         "$Baseline_encrypt/Dofiles Import" 
+   global Baseline_HFC           "$Baseline_encrypt/High Frequency Checks" 
+
+   *DataSets sub-folder globals
    global Baseline_dt            "$Baseline/DataSets" 
+   global Baseline_dtDeID        "$Baseline_dt/Deidentified" 
+   global Baseline_dtInt         "$Baseline_dt/Intermediate" 
+   global Baseline_dtFin         "$Baseline_dt/Final" 
+
+   *Dofile sub-folder globals
    global Baseline_do            "$Baseline/Dofiles" 
+   global Baseline_doCln         "$Baseline_do/Cleaning" 
+   global Baseline_doCon         "$Baseline_do/Construct" 
+   global Baseline_doAnl         "$Baseline_do/Analysis" 
+
+   *Output sub-folder globals
    global Baseline_out           "$Baseline/Output" 
+   global Baseline_outRaw        "$Baseline_out/Raw" 
+   global Baseline_outFin        "$Baseline_out/Final" 
 
-*iefolder*1*FolderGlobals*endRounds*********************************************
-*iefolder will not work properly if the line above is edited
-
+   *Questionnaire sub-folder globals
+   global Baseline_prld          "$Baseline_quest/PreloadData" 
+   global Baseline_doc           "$Baseline_quest/Questionnaire Documentation" 
 
 *iefolder*1*End_FolderGlobals***************************************************
 *iefolder will not work properly if the line above is edited
@@ -176,30 +164,37 @@
    *
    *       PART 3: - RUN DOFILES CALLED BY THIS MASTER DOFILE
    *
-   *           - When survey rounds are added, this section will
-   *            link to the master dofile for that round.
-   *           - The default is that these dofiles are set to not
-   *            run. It is rare that all round-specfic master dofiles
-   *            are called at the same time; the round specific master
-   *            dofiles are almost always called individually. The
-   *            exception is when reviewing or replicating a full project.
+   *           - A task master dofile has been created for each high-
+   *            level task (cleaning, construct, analysis). By 
+   *            running all of them all data work associated with the 
+   *            Baseline should be replicated, including output of 
+   *            tables, graphs, etc.
+   *           - Feel free to add to this list if you have other high-
+   *            level tasks relevant to your project.
    *
    * ******************************************************************** *
 
+   **Set the locals corresponding to the tasks you want
+   * run to 1. To not run a task, set the local to 0.
+   local importDo       0
+   local cleaningDo     0
+   local constructDo    0
+   local analysisDo     0
 
-*iefolder*3*RunDofiles*Endline*Endline******************************************
-*iefolder will not work properly if the line above is edited
-
-   if (0) { //Change the 0 to 1 to run the Endline master dofile
-       do "$Endline/Endline_MasterDofile.do" 
+   if (`importDo' == 1) { // Change the local above to run or not to run this file
+       do "$Baseline_doImp/Baseline_import_MasterDofile.do" 
    }
 
+   if (`cleaningDo' == 1) { // Change the local above to run or not to run this file
+       do "$Baseline_do/Baseline_cleaning_MasterDofile.do" 
+   }
 
-*iefolder*3*RunDofiles*Baseline*Baseline****************************************
-*iefolder will not work properly if the line above is edited
+   if (`constructDo' == 1) { // Change the local above to run or not to run this file
+       do "$Baseline_do/Baseline_construct_MasterDofile.do" 
+   }
 
-   if (0) { //Change the 0 to 1 to run the Baseline master dofile
-       do "$Baseline/Baseline_MasterDofile.do" 
+   if (`analysisDo' == 1) { // Change the local above to run or not to run this file
+       do "$Baseline_do/Baseline_analysis_MasterDofile.do" 
    }
 
 *iefolder*3*End_RunDofiles******************************************************

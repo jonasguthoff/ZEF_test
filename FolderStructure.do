@@ -42,17 +42,28 @@ iefolder new project, projectfolder("$GitHub")
 
 ** Employer Survey
 
-	** Baseline
-	iefolder new subfolder EmployerSurvey, projectfolder("$Sciebo")
-	iefolder new round Baseline,           projectfolder("$Sciebo") subfolder("EmployerSurvey")
-
-	** Endline
 	iefolder new subfolder EmployerSurvey, projectfolder("$GitHub")
+
+	
+	** Github - Baseline
+	iefolder new round Baseline,           projectfolder("$GitHub") subfolder("EmployerSurvey")
+
+	** Github - Endline
 	iefolder new round Endline,            projectfolder("$GitHub") subfolder("EmployerSurvey")
 
 
 
+	
+	iefolder new subfolder EmployerSurvey, projectfolder("$Sciebo")
 
+	
+	** Sciebo - Baseline
+	iefolder new round Baseline,           projectfolder("$Sciebo") subfolder("EmployerSurvey")
+	
+	** Sciebo - Endline
+	iefolder new round Endline,            projectfolder("$Sciebo") subfolder("EmployerSurvey")
+
+	
 
 	* Add readme files to all folders for github
 	iegitaddmd, folder("$Sciebo/DataWork")  all automatic
