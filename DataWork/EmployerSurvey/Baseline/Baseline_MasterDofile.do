@@ -91,7 +91,7 @@
 
    * Project folder globals
    * ---------------------
-
+*this is a test
    global dataWorkFolder         "$projectfolder/DataWork"
 
 *iefolder*1*FolderGlobals*master************************************************
