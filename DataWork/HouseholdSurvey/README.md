@@ -20,3 +20,4 @@ Another great use of a *README.md* file is to use it as a documentation on how t
 
 Our recommendation is to not remove this file, as GitHub may stop syncing the parent folder unless the folder now has other content. We recommend to not even remove this file when content that is committed to this repository is added to this folder and the file can be removed without breaking the GitHub functionality, as it is better practice to replace the content of this file with content describing this specific folder rather than deleting it.
 
+##Committing and Branching
