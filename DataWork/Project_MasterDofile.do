@@ -89,9 +89,9 @@
 
 
 * These lines are used to test that the name is not already used (do not edit manually)
-*round*Endline*Baseline*********************************************************
+*round*Endline*Baseline*HH_Baseline*HH_Endline**********************************
 *untObs*************************************************************************
-*subFld*EmployerSurvey**********************************************************
+*subFld*EmployerSurvey*HouseholdSurvey******************************************
 *iefolder will not work properly if the lines above are edited
 
 
@@ -108,6 +108,10 @@
    *EmployerSurvey sub-folder globals
    global EmployerSurvey         "$dataWorkFolder/EmployerSurvey" 
    global EmployerSurvey_encrypt "$encryptFolder/Subfolder EmployerSurvey Encrypted" 
+   
+   *HouseholdSurvey sub-folder globals
+   global HouseholdSurvey        "$dataWorkFolder/HouseholdSurvey" 
+   global HouseholdSurvey_encrypt"$encryptFolder/Subfolder HouseholdSurvey Encrypted" 
    
 *iefolder*1*FolderGlobals*master************************************************
 *iefolder will not work properly if the line above is edited
@@ -140,6 +144,28 @@
    global Baseline_dt            "$Baseline/DataSets" 
    global Baseline_do            "$dataWorkGithub/EmployerSurvey/Baseline/Dofiles" 
    global Baseline_out           "$Baseline/Output" 
+
+
+*iefolder*1*RoundGlobals*rounds*HH_Baseline*HH_Baseline*************************
+*iefolder will not work properly if the line above is edited
+
+   *HH_Baseline folder globals
+   global HH_Baseline            "$dataWorkFolder/HouseholdSurvey/HH_Baseline" 
+   global HH_Baseline_encrypt    "$encryptFolder/Subfolder HouseholdSurvey Encrypted/Round HH_Baseline Encrypted" 
+   global HH_Baseline_dt         "$HH_Baseline/DataSets" 
+   global HH_Baseline_do         "$HH_Baseline/Dofiles" 
+   global HH_Baseline_out        "$HH_Baseline/Output" 
+
+
+*iefolder*1*RoundGlobals*rounds*HH_Endline*HH_Endline***************************
+*iefolder will not work properly if the line above is edited
+
+   *HH_Endline folder globals
+   global HH_Endline             "$dataWorkFolder/HouseholdSurvey/HH_Endline" 
+   global HH_Endline_encrypt     "$encryptFolder/Subfolder HouseholdSurvey Encrypted/Round HH_Endline Encrypted" 
+   global HH_Endline_dt          "$HH_Endline/DataSets" 
+   global HH_Endline_do          "$HH_Endline/Dofiles" 
+   global HH_Endline_out         "$HH_Endline/Output" 
 
 *iefolder*1*FolderGlobals*endRounds*********************************************
 *iefolder will not work properly if the line above is edited
@@ -195,6 +221,22 @@
 
    if (0) { //Change the 0 to 1 to run the Baseline master dofile
        do "$dataWorkGithub/EmployerSurvey/Baseline/Baseline_MasterDofile.do" 
+   }
+
+
+*iefolder*3*RunDofiles*HH_Baseline*HH_Baseline**********************************
+*iefolder will not work properly if the line above is edited
+
+   if (0) { //Change the 0 to 1 to run the HH_Baseline master dofile
+       do "$HH_Baseline/HH_Baseline_MasterDofile.do" 
+   }
+
+
+*iefolder*3*RunDofiles*HH_Endline*HH_Endline************************************
+*iefolder will not work properly if the line above is edited
+
+   if (0) { //Change the 0 to 1 to run the HH_Endline master dofile
+       do "$HH_Endline/HH_Endline_MasterDofile.do" 
    }
 
 *iefolder*3*End_RunDofiles******************************************************

@@ -52,6 +52,19 @@ iefolder new project, projectfolder("$GitHub")
 	iefolder new round Endline,            projectfolder("$GitHub") subfolder("EmployerSurvey")
 
 
+	
+	
+	iefolder new subfolder HouseholdSurvey, projectfolder("$GitHub")
+
+	
+	** Github - Baseline
+	iefolder new round HH_Baseline,           projectfolder("$GitHub") subfolder("HouseholdSurvey")
+
+	** Github - Endline
+	iefolder new round HH_Endline,            projectfolder("$GitHub") subfolder("HouseholdSurvey")
+
+	
+	
 
 	
 	iefolder new subfolder EmployerSurvey, projectfolder("$Sciebo")
